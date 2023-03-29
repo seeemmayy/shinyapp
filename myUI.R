@@ -4,6 +4,12 @@ library(shinythemes)
 source("homepageplots.R")
 
 
+"""
+The User Interface creation for the different pages which houses all the text,
+the plots from the homepage, the different selections for main presenting complaint
+and region and the slider timescale.
+"""
+
 myUI <- shinyUI({
   navbarPage("Dashboard", theme = shinytheme("yeti"),
                   tabPanel("Home",
