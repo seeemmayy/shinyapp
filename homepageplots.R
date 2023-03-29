@@ -15,6 +15,13 @@ library(plotly)
 library(scales)
 
 
+"""
+This file reads the plotting information and creates the 6 home page plots
+for the different main presenting complaints and species with the added
+hover.
+"""
+
+
 df <- read.csv("https://fhm-chicas-storage.lancs.ac.uk/savsnet-agile-artefacts/public/plot_data_for_alan/full_dog_cat_plot.csv")
 df$date_week_beginning = as.Date(df$date_week_beginning,"%Y-%m-%d")
 names(df)[names(df) == 'region'] <- 'id'
