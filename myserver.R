@@ -1,3 +1,8 @@
+"""
+The plots for the different species tabs as well as the rendering of the plots and links
+to be mounted onto the app.
+"""
+
 
 server <- function(input, output) {
   
