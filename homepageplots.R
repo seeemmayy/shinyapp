@@ -15,13 +15,6 @@ library(plotly)
 library(scales)
 
 
-"""
-This file reads the plotting information and creates the 6 home page plots
-for the different main presenting complaints and species with the added
-hover.
-"""
-
-
 df <- read.csv("https://fhm-chicas-storage.lancs.ac.uk/savsnet-agile-artefacts/public/plot_data_for_alan/full_dog_cat_plot.csv")
 df$date_week_beginning = as.Date(df$date_week_beginning,"%Y-%m-%d")
 names(df)[names(df) == 'region'] <- 'id'
@@ -29,7 +22,7 @@ df$id <- ifelse(df$id == "East", "East of England", df$id)
 df$mapstatus <- factor(df$mapstatus, levels=c("low","medium","high"))
 df$legendlabels <- fct_collapse(df$gpcolour, "0.01<p<=0.05" = "orange", "p<=0.01" = "red", "0.05<p" = "palegreen")
 
-shapefile <- st_read(dsn=".", layer="NUTS1_Jan_2018_SGCB_in_the_UKedited")
+shapefile <- st_read(".", layer="NUTS1_Jan_2018_SGCB_in_the_UKedited")
 names(shapefile)[names(shapefile) == "nuts118nm"] <- "id"
 
 
@@ -63,10 +56,10 @@ catprur <- plotdata(df,"cat", "pruritus", shapefile)
 pdoggi <- ggplot()+
   geom_sf(data=doggi, aes(text = paste("<b>Date: </b>", date_week_beginning,"<br>",
                                              "<b>Region: </b>", id,"<br>",
-                                             "<b>MPC Value: </b> ", mpc_value, "<br>"),
+                                             "<b>MPC Value: </b> ", round(mpc_value), "<br>"),
                           fill=mapstatus))+
   coord_sf()+
-  scale_fill_manual(values=c("palegreen","orange","red"), limits=levels(doggi$mapstatus))+
+  scale_fill_manual(values=c("#28A197","#F46A25","#801650"), limits=levels(doggi$mapstatus))+
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   theme(axis.title.x=element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())+
@@ -83,10 +76,10 @@ plpdoggi <- ggplotly(pdoggi, tooltip = "text") %>%
 pdogresp <- ggplot()+
   geom_sf(data=dogresp, aes(text = paste("<b>Date: </b>", date_week_beginning,"<br>",
                                          "<b>Region: </b>", id,"<br>",
-                                         "<b>MPC Value: </b> ", mpc_value, "<br>"),
+                                         "<b>MPC Value: </b> ", round(mpc_value), "<br>"),
                             fill=mapstatus))+
   coord_sf()+
-  scale_fill_manual(values=c("palegreen","orange","red"), limits=levels(dogresp$mapstatus))+
+  scale_fill_manual(values=c("#28A197","#F46A25","#801650"), limits=levels(dogresp$mapstatus))+
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = 'none')+
   theme(axis.title.x=element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())+
@@ -101,10 +94,10 @@ plpdogresp <- ggplotly(pdogresp, tooltip = "text") %>%
 pdogprur <- ggplot()+
   geom_sf(data=dogprur, aes(text = paste("<b>Date: </b>", date_week_beginning,"<br>",
                                          "<b>Region: </b>", id,"<br>",
-                                         "<b>MPC Value: </b> ", mpc_value, "<br>"),
+                                         "<b>MPC Value: </b> ", round(mpc_value), "<br>"),
                             fill=mapstatus))+
   coord_sf()+
-  scale_fill_manual(values=c("palegreen","orange","red"), limits=levels(dogprur$mapstatus))+
+  scale_fill_manual(values=c("#28A197","#F46A25","#801650"), limits=levels(dogprur$mapstatus))+
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = 'none')+
   theme(axis.title.x=element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())+
@@ -120,10 +113,10 @@ plpdogprur <- ggplotly(pdogprur, tooltip = "text") %>%
 pcatgi <- ggplot()+
   geom_sf(data=catgi, aes(text = paste("<b>Date: </b>", date_week_beginning,"<br>",
                                        "<b>Region: </b>", id,"<br>",
-                                       "<b>MPC Value: </b> ", mpc_value, "<br>"),
+                                       "<b>MPC Value: </b> ", round(mpc_value), "<br>"),
                           fill=mapstatus))+
   coord_sf()+
-  scale_fill_manual(values=c("palegreen","orange","red"), limits=levels(catgi$mapstatus))+
+  scale_fill_manual(values=c("#28A197","#F46A25","#801650"), limits=levels(catgi$mapstatus))+
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = 'none')+
   theme(axis.title.x=element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())+
@@ -139,10 +132,10 @@ plpcatgi <- ggplotly(pcatgi, tooltip = "text") %>%
 pcatresp <- ggplot()+
   geom_sf(data=catresp, aes(text = paste("<b>Date: </b>", date_week_beginning,"<br>",
                                         "<b>Region: </b>", id,"<br>",
-                                        "<b>MPC Value: </b> ", mpc_value, "<br>"),
+                                        "<b>MPC Value: </b> ", round(mpc_value), "<br>"),
                             fill=mapstatus))+
   coord_sf()+
-  scale_fill_manual(values=c("palegreen","orange","red"), limits=levels(catresp$mapstatus))+
+  scale_fill_manual(values=c("#28A197","#F46A25","#801650"), limits=levels(catresp$mapstatus))+
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = 'none')+
   theme(axis.title.x=element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())+
@@ -157,10 +150,10 @@ plpcatresp <- ggplotly(pcatresp, tooltip = "text") %>%
 pcatprur <- ggplot()+
   geom_sf(data=catprur, aes(text = paste("<b>Date: </b>", date_week_beginning,"<br>",
                                          "<b>Region: </b>", id,"<br>",
-                                         "<b>MPC Value: </b> ", mpc_value, "<br>"),
+                                         "<b>MPC Value: </b> ", round(mpc_value), "<br>"),
                             fill=mapstatus))+
   coord_sf()+
-  scale_fill_manual(values=c("palegreen","orange","red"), limits=levels(catprur$mapstatus))+
+  scale_fill_manual(values=c("#28A197","#F46A25","#801650"), limits=levels(catprur$mapstatus))+
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = 'none')+
   theme(axis.title.x=element_blank(), axis.text.x = element_blank(), axis.ticks.x = element_blank())+
